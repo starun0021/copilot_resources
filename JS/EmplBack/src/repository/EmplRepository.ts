@@ -4,7 +4,7 @@ import { Employee } from '../model/Employee';
 import e from 'express';
 
 /**
- * Repository class for managing employee data.
+ * Represents a repository for managing employees in the database.
  */
 export class EmplRepository {
 
@@ -38,7 +38,7 @@ export class EmplRepository {
      * @param employee - The employee object to add.
      * @returns A promise that resolves to the result of the insertion.
      */
-    public async addEmployee(employee: Partial<Employee>) {
+    public async addEmployee(employee: Partial<Employee>): Promise<any> {
         const result = await this.connection.query(
             'INSERT INTO employees (first_name, last_name, hire_date, position) VALUES (?, ?, ?, ?)',[
                 employee.firstName, employee.lastName, employee.hireDate, employee.position
@@ -52,7 +52,7 @@ export class EmplRepository {
      * @param position - The new position of the employee.
      * @returns A promise that resolves to the result of the update.
      */
-    public async updateEmployeePosition(id: number, position: string) {
+    public async updateEmployeePosition(id: number, position: string): Promise<any> {
         const result = await this.connection.query(
             'UPDATE employees SET position = ? WHERE id = ?', [position, id]);
         return result[0];            
@@ -63,7 +63,7 @@ export class EmplRepository {
      * @param id - The ID of the employee to delete.
      * @returns A promise that resolves to the result of the deletion.
      */
-    public async deleteEmployee(id: number) {
+    public async deleteEmployee(id: number): Promise<any> {
         const result = await this.connection.query(
             'DELETE FROM employees WHERE id = ?', [id]);
         return result[0];            
